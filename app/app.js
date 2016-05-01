@@ -1,5 +1,7 @@
-"use strict"
+(function(){
+  var app=angular.module('todo',[]);
 
-(function (){
-  angular.module("todo", [])
-})()
+  app.controller('TodosController' function(){
+
+  });
+})();
