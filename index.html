@@ -1,14 +1,49 @@
 <!DOCTYPE html>
-  <html lang="en" ng-app'ToDo'>
-  <head>
-     <meta charset="UTF-8">
-     <title>Angular ToDo App</title>
-     <link rel="stylesheet" type="text/css" href="app.css">
-     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
-     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-     <script type="text/javascript" src="app.js"></script>
-  </head>
-  <body data-ng-controller="todosController as vm">
-    <h1>Hello, Angular!</h1>
-  </body>
-</html>
+<html lang="en" ng-app'ToDo'>
+<head>
+  <meta charset="UTF-8">
+  <title>Angular ToDo App</title>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="app.js"></script>
+  <!-- <script src="app/todos/todos.controller.js"></script> -->
+  <style>
+  span.done-true {
+    color: gray;
+    font-style: italic;
+    text-decoration: line-through;
+  }
+
+  span[contenteditable='true'] {
+    background: #DCD1F0;
+    padding: 3px;
+  }
+
+  </style>
+</head>
+<body ng-app="todo" ng-controller="app">
+  <div class="container">
+  <div class="jumbotron">
+  <h1 style="text-align:center;">Family To-Do List!</h1>
+  <input ng-model="task" ng-keyup="searchEnter()" type="text" style="display:block;margin:auto;padding:5px;font-size:15px;width:300px;">
+</div>
+<div id="taskToShow">
+  <ul>
+    <li ng-repeat="oneTask in tasks">
+      <input type="checkbox" ng-model="oneTask.status">
+      <span contenteditable="false" ng-dbleclick="contentEdit()" ng-keyup="enterAgain(oneTask.taskMessage)" ng-modle="oneTask.taskMessage" class="done-{{oneTask.status}}">
+        <!-- {{oneTask.taskMessage}} -->
+      </span>
+    </li>
+  </ul>
+        <div ng-repeat="todo in todosViewModel.todos">
+          <!-- <p ng-show="!editTodo">{{$index}} {{todo}}</p> -->
+          <button class="btn btn-success" type="button"  ng-click="todosViewModel.edit($index); editTodo = !editTodo">Edit Todo</button> <form ng-show="editTodo">
+            <input type="text" name="content" ng-model="todosViewModel.content">
+            <button class="new" ng-click="todosViewModel.update($index); editTodo = editTodo">Save</button>
+            <button ng-click='editTodo = !editTodo' class='cancel'>Cancel</button>
+          </form>
+        </div>
+        </div>
+    </body>
+    </html>
